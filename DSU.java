@@ -1,6 +1,12 @@
 import java.util.*;
 import java.io.*;
 public class DSU {
+
+    /**
+     * 
+     * COMPLEXITY: log *N = log( log( log( ....N))) = atmost 5 in real scenarios.
+     * 
+     */
         
     public static void main(String args[])throws IOException{
         Scanner sc=new Scanner(System.in);
