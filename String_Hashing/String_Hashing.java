@@ -34,11 +34,11 @@ public class String_Hashing
 		}
 		
 		int add(int a, int b, int mod){
-    	    int res = (a + b) % mod;
-    	    if(res < 0)
-    	        res += mod;
-    	    return res;
-    	}
+		    int res = (a + b) % mod;
+		    if(res < 0)
+			res += mod;
+		    return res;
+    		}
     	 
 		int mult(int a, int b, int mod){
 		    int res = (int)((((long)a) * b) % mod);
@@ -81,18 +81,18 @@ public class String_Hashing
 		    res = mult(res , (x == 0) ? 1 : inv[x], mod);
 		    return res;
 		}
-		 
-		
 	}
+	
     public static void main(String[] args) 
 	{ 
     	
-//    	Single Hash starts
-    	Hashing obj=new Hashing((int)1e6,(int)1e9+7,35);
-    	String s ="ABCDEFGABCDEFGH";
-    	
-    	obj.precalc();
-    	obj.build(s);
+//    		Single Hash starts
+	    
+		Hashing obj=new Hashing((int)1e6,(int)1e9+7,35);
+		String s ="ABCDEFGABCDEFGH";
+
+		obj.precalc();
+		obj.build(s);
     	
 		System.out.println(obj.getHash(2,5) == obj.getHash(9,12));
 		
@@ -100,6 +100,7 @@ public class String_Hashing
 		
 		
 //		Double Hash Starts
+	    
 		Hashing h1=new Hashing((int)1e6,(int)1e9+7,35);
 		Hashing h2=new Hashing((int)1e6,(int)1e9+9,32);
 		
@@ -112,9 +113,7 @@ public class String_Hashing
 		
 		System.out.println(h1.getHash(2,5) == h1.getHash(9,12) && h2.getHash(2,5) == h2.getHash(9,12));
 		
-//		Double Hash Ends here
-		
-	    
+//		Double Hash Ends here	
+  
 	} 
-
 } 
