@@ -50,6 +50,11 @@ class Solution {
                     // Why not simply update the second paramter ? - this won't help as
                     // Java's PriorityQueue is a binary heap that does not support a decrease-key operation (which is an efficient way to update a key's priority in data structures like Fibonacci Heaps).
                     // PriorityQueue only reorders when you explicitly remove an element and reinsert it.
+
+
+
+                    // What's other option other than Fibonacci heap which is slightly advanced? -> Use TreeSet<iPair> where we also need to remove before adding pq.remove(new Node(child, distance[child]));
+                    // Also, iPair should override compare method to tell TreeSet how to sort the values: 
                 }
             }
         }
