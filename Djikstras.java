@@ -7,54 +7,59 @@
 *	Time Complexity: O(E logV) (using heap) ; E updates and each update takes log(V)
 *
 */
+/*
+
+*/
 
 
-    static long priority[];
-    static class primSort implements Comparator<Integer>{
-    	public int compare(Integer a,Integer b) {
-    		if(priority[a]>priority[b])
-    			return 1;
-    		if(priority[a]<priority[b])
-    			return -1;
-    		return 0;
-    	}
+// User function Template for Java
+class Solution {
+
+    
+    class iPair {
+        int first, second;
+    
+        iPair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
     }
-    //returns distance of each node from root node; 
-    static long[] djiksras(int root,int n,ArrayList<Edge> arr[]) {
-    	/*
-    	 * i - > dest
-    	 * Edge contains dest && cost
-    	 */
-    	long distance[];
-    	int path[];
-    	path=new int[n+1];
-    	distance=new long[n+1];
-    	priority =new long[n+1]; 
-    	Arrays.fill(distance, -1l);
-    	Arrays.fill(path, -1);
-    	PriorityQueue<Integer> pq=new PriorityQueue<>(new primSort());
-    	distance[root]=0;
-    	pq.add(root);
-
-    	while(!pq.isEmpty()) {
-    		int nd = pq.poll();
-    		for(int i=0;i<arr[nd].size();i++) {
-    			int child =arr[nd].get(i).dest;
-    			long edgeWt = arr[nd].get(i).cost;
-    			long d = distance[nd]+edgeWt;
-    			if(distance[child] == -1) {
-    				distance[child]=d;
-    				priority[child]=d;
-    				pq.add(child);
-    				path[child]=nd;    				
-    			}
-    			if(distance[child]>d) {
-    				distance[child]=d;
-    				priority[child]=d;
-    				path[child]=nd;
-    			}
-    		}
-    	}
-    	
-    	return distance;
-    }   
+    
+    // Function to find the shortest distance of all the vertices
+    // from the source vertex src.
+    ArrayList<Integer> dijkstra(ArrayList<ArrayList<iPair>> adj, int src) {
+        // Write your code here
+        int n = adj.size();
+        int dist[] = new int[n];
+        Arrays.fill(dist, -1);
+        dist[src] = 0;
+        
+        PriorityQueue<iPair> nodes = new PriorityQueue<>((a, b) -> a.second-b.second);
+        
+        nodes.add(new iPair(src, 0));
+        
+        while(!nodes.isEmpty()) {
+            iPair nd = nodes.poll();
+            if(dist[nd.first] < nd.second) continue; //Redundant node
+            
+            for(iPair ch: adj.get(nd.first)) {
+                if(dist[ch.first] == -1 || dist[ch.first] > dist[nd.first] + ch.second) {
+                    dist[ch.first] = dist[nd.first]+ch.second;
+                    nodes.add(new iPair(ch.first, dist[ch.first])); 
+                    // If a node is already present in heap, then this would add another node but doesnot matter as it will rebalance the tree and would return the shortest distance node.
+                    // Why not simply update the second paramter ? - this won't help as
+                    // Java's PriorityQueue is a binary heap that does not support a decrease-key operation (which is an efficient way to update a key's priority in data structures like Fibonacci Heaps).
+                    // PriorityQueue only reorders when you explicitly remove an element and reinsert it.
+                }
+            }
+        }
+        
+        final ArrayList<Integer> li = new ArrayList<>(n);
+        for(int d: dist) {
+            li.add(d);
+        }
+        
+        return li;
+        
+    }
+}
